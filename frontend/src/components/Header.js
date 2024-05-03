@@ -15,7 +15,7 @@ const Header = () =>{
                 <Link to={"/cart"}>
                     <li className="hover:cursor-pointer font-bold ">CART <sup className=" text-green-500">{cartItems.length}</sup></li>
                 </Link>  
-                <Link to={"/login"}>  
+                <Link to={"/users/login"}>  
                     <li className="hover:cursor-pointer font-bold">LOGIN</li>
                 </Link>    
                 </ul>

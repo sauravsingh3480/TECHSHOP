@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 import HomeScreen from './screen/HomeScreen';
 import LogIn from './screen/LoginScreen';
+import Registration from './screen/RegisterScreen';
 import Cart from './screen/CartScreen'
 import ProductDetails from './screen/ProductDetailsScreen';
 import BuyProduct from './screen/BuyProductScreen';
@@ -42,8 +43,12 @@ const appRouter = createBrowserRouter([
         element: <Cart />
       },
       {
-        path: "/login",
+        path: "/users/login",
         element: <LogIn />
+      },
+      {
+        path: "/users/register",
+        element : <Registration />
       },
       {
         path: "/product/:id",
