@@ -12,13 +12,15 @@ const ProductCardInCart = ({ _id, name, image, brand, price, discPrice, delivery
     let product = null
     for (let idx = 0; idx < cartItems.length; idx++) {
         if (cartItems[idx]._id === _id) {
-            product = cartItems[idx];
+            product = cartItems[idx]; //FINDING PRODUCT TO REMOVE
             break;
         }
     }
     const dispatch = useDispatch();
     const handleRemoveItem = (product) => {
         dispatch(removeItem(product));
+
+        //NOTE -- Removeing product from local storage in Header component
     }
     //END
 

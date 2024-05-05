@@ -7,9 +7,27 @@ import StarRating from "../components/StarRating";
 
 
 const CartStatus = (countInStock, product, [cartText, setCartText]) => {
+
+    //ADDING ITEM IN CART
     const dispatch = useDispatch();
     const handleAddItem = (product) => {
         dispatch(addItem(product));
+
+    //ADDING ITEM IN LOCAL STORAGE
+        let cartItems = []
+        if (localStorage.getItem("cartItems") === null) {
+
+            cartItems.push(product);
+            localStorage.setItem("cartItems", JSON.stringify(cartItems))
+        }
+        else {
+            cartItems = JSON.parse(localStorage.getItem("cartItems"))
+            const existsItem = cartItems.find(item => item._id === product._id)
+            if (!existsItem) {
+                cartItems.push(product)
+                localStorage.setItem("cartItems", JSON.stringify(cartItems))
+            }
+        }
     }
     const clicked = () => {
         if (cartText === "ADD TO CART") {
@@ -62,7 +80,7 @@ const ProductDetails = () => {
                     <span className="font-bold sm:text-4xl text-2xl">{name}</span>
                     <span><span className="font-bold text-red-700 text-2xl">{brand} </span> Product</span>
                     <span className="text-sm text-gray-600">{description}</span>
-                    <span className=" text-sm">Only for <sapn className=" text-green-500 font-bold text-xl">₹{price-discPrice}</sapn> (  {countInStock > 0 ? 'Only ' + countInStock + ' Left ' : ' Not Available '}  )</span>
+                    <span className=" text-sm">Only for <sapn className=" text-green-500 font-bold text-xl">₹{price - discPrice}</sapn> (  {countInStock > 0 ? 'Only ' + countInStock + ' Left ' : ' Not Available '}  )</span>
                     <span className="text-[#fbbf24] tracking-widest">
                         <StarRating outof={5} rating={rating} /> <span className="text-black tracking-normal"> {numReview} reviews</span>
                     </span>

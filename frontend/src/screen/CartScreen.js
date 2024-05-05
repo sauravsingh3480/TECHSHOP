@@ -13,7 +13,6 @@ const Cart = () => {
         let totalDiscount = 0;
         for (let i = 0; i < cartItems.length; i++)
         {
-            console.log(cartItems[i].selectedQty)
             totalPrice += cartItems[i].price;
             totalDiscount += cartItems[i].discPrice;
         }
@@ -34,7 +33,7 @@ const Cart = () => {
                         PLACE ORDER
                     </div>
                 </div>
-                <div className="fixed right-0 w-[32%] border p-5 z-10 bg-white shadow-sm h-[78vh] mt-4 sm:flex flex-col justify-between mx-4 hidden">
+                <div className="fixed right-0 w-[32%] border p-5 bg-white shadow-sm h-[78vh] mt-4 sm:flex flex-col justify-between mx-4 hidden">
                     <div className="w-full font-semibold border-b-2 text-center p-3"><span className=" text-red-400 font-bold text-lg ">{cartItems.length}</span> items in cart place order</div>
                     <ul className="flex justify-between">
                         <li>Total MRP</li>

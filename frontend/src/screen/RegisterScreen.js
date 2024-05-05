@@ -1,5 +1,7 @@
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { useState } from 'react';
 
 import registerValidator from '../validators/registrerValidator';
 
@@ -8,18 +10,40 @@ const initialValues = {
     email: "",
     password: "",
     confirm_password: "",
-  };
+};
 
 const Registration = () => {
 
+    const [failure, setFailure] = useState(null);
+
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
-        validationSchema : registerValidator,
+        validationSchema: registerValidator,
         onSubmit: (values, action) => {
-            console.log(values)
+            registerAPI(values)
             action.resetForm();
         }
     })
+    const config = {
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }
+    async function registerAPI({ name, email, password }) {
+        try {
+            const { data } = await axios.post("http://127.0.0.1:8000/api/users/register/",
+                { 'name': name, 'email': email, 'password': password },
+                config
+
+            );
+            setFailure(null);
+            console.log(data);
+        }
+        catch (error) {
+            setFailure(error.response.data.details);
+            console.log(error);
+        }
+    }
 
     return (
         < div className='w-[90%] mx-auto border mt-16 sm:mt-4 px-4 py-6 sm:p-4 rounded-sm flex h-fit'>
@@ -58,6 +82,7 @@ const Registration = () => {
                             className='py-1 sm:py-0 outline-none text-lg sm:text-base text-slate-500'
                         />
                         {errors.email && touched.email ? (<p className='text-sm text-pink-700'>{errors.email}</p>) : null}
+                        {failure != null ? (<p className='text-sm text-pink-700'>{failure}</p>) : null}
                     </div>
                     <div className='flex flex-col border border-black border-opacity-40 px-2 py-1 rounded-md'>
                         <label htmlFor='password' className='font-semibold text-sm'>
@@ -74,7 +99,7 @@ const Registration = () => {
                             onBlur={handleBlur}
                             className='py-1 sm:py-0 outline-none text-lg sm:text-base text-slate-500'
                         />
-                         {errors.password && touched.password ? (<p className='text-sm text-pink-700'>{errors.password}</p>) : null}
+                        {errors.password && touched.password ? (<p className='text-sm text-pink-700'>{errors.password}</p>) : null}
                     </div>
                     <div className='flex flex-col border border-black border-opacity-40 px-2 py-1 rounded-md'>
                         <label htmlFor='confirm_password' className='font-semibold text-sm'>
@@ -91,7 +116,7 @@ const Registration = () => {
                             onBlur={handleBlur}
                             className='py-1 sm:py-0 outline-none text-lg sm:text-base text-slate-500'
                         />
-                         {errors.confirm_password && touched.confirm_password ? (<p className='text-sm text-pink-700'>{errors.confirm_password}</p>) : null}
+                        {errors.confirm_password && touched.confirm_password ? (<p className='text-sm text-pink-700'>{errors.confirm_password}</p>) : null}
                     </div>
                     <div>
                         <button type='submit' className='border py-2 px-4 bg-slate-600 font-bold text-white rounded-md mb-2 sm:py-2 sm:text-sm tracking-wider'>
@@ -104,7 +129,7 @@ const Registration = () => {
                 </p>
             </div>
             <div className='w-[50%] border border-black hidden sm:block ml-4 rounded-sm'>
-                <img src="./watch.webp" alt='image' ></img>
+                {/* <img src="./watch.webp" alt='image' ></img> */}
             </div>
         </div >
     );
