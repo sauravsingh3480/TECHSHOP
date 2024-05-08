@@ -13,7 +13,7 @@ const CartStatus = (countInStock, product, [cartText, setCartText]) => {
     const handleAddItem = (product) => {
         dispatch(addItem(product));
 
-    //ADDING ITEM IN LOCAL STORAGE
+        //ADDING ITEM IN LOCAL STORAGE
         let cartItems = []
         if (localStorage.getItem("cartItems") === null) {
 
@@ -60,10 +60,15 @@ const ProductDetails = () => {
         productAPI();
     }, []);
     async function productAPI() {
-        let productURL = "http://127.0.0.1:8000/api/products/" + id;
-        const data = await fetch(productURL);
-        const jsonData = await data.json();
-        setProduct(jsonData);
+        try {
+            let productURL = "http://127.0.0.1:8000/api/products/" + id +"/";
+            const data = await fetch(productURL);
+            const jsonData = await data.json();
+            setProduct(jsonData);
+        }
+        catch(error) {
+            console.log(error);
+        }
     }
 
     if (Object.keys(product).length === 0) {

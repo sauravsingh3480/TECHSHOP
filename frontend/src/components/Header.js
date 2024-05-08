@@ -24,7 +24,7 @@ const Header = () => {
                         <li className="font-bold hover:cursor-pointer">TECHSHOP</li>
                     </a>
                     <ul className="flex sm:gap-10 gap-5 text-sm">
-                        <Link to={"/cart"}>
+                        <Link to={"/checkout/cart"}>
                             <li className="hover:cursor-pointer font-bold ">CART <sup className=" text-green-500">{cartItems.length}</sup></li>
                         </Link>
                         <li className="hover:cursor-pointer font-bold">{loginData === null ? <Link to={"/users/login"}><p>LOGIN</p></Link> : <p>{Dropdown(loginData,[flag, setFlag])}</p>} 

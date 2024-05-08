@@ -57,10 +57,8 @@ const LogIn = () => {
     const [failureMessage, setFailureMessage] = useState(null);
     const dispatch = useDispatch();
 
-    const loginData = useSelector(store => store.login.loginData)
+    const loginData = useSelector(store => store.login.loginData);
     if (loginData) {
-        console.log(loginData);
-        routeToHeroPage();
         return <div className='text-2xl font-bold w-full text-center py-8'>Already Logined.... <span className='underline font-semibold text-pink-400'><Link to={'/'}> Go Back</Link></span></div>
     }
     else {

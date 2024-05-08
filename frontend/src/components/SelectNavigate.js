@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../utils/loginSlice';
 
-const Dropdown = ({ name, _id, isAdmin }, [flag, setFlag]) => {
+
+const Dropdown = ({ name, isAdmin }, [flag, setFlag]) => {
 
     const handleDropBox = ([flag, setFlag]) => {
 
@@ -28,15 +29,14 @@ const Dropdown = ({ name, _id, isAdmin }, [flag, setFlag]) => {
                 </div>
                 <div class="absolute right-0 z-10 mt-1 w-40 rigin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                     <div class="py-1" role="none">
-                        <Link to={"/users/profile/" + _id} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Profile</Link>
+                        <Link to={"/users/profile"} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Profile</Link>
                         {isAdmin ? <Link to={"/products/manage"} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Manage Products</Link> : null}
                         {isAdmin ? <Link to={"/users/manage/"} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Manage Users</Link> : null}
-                        <form method="POST" action="#" role="none">
-                            <p class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3" onClick={() => {
-                                dispatch(logOut());
-                                localStorage.removeItem('userInfo');
-                            }}>Sign out</p>
-                        </form>
+                        <p class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3" onClick={() => {
+                            dispatch(logOut());
+                            localStorage.removeItem('userInfo');
+                            window.location.reload();
+                        }}><Link to={"/"}>Sign out</Link></p>
                     </div>
                 </div>
             </div>

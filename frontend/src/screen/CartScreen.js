@@ -6,13 +6,12 @@ import ProductCardInCart from "../components/ProductCardInCart";
 
 const Cart = () => {
     const cartItems = useSelector(store => store.cart.items);
+    const loginData = useSelector(store => store.login.loginData);
 
-    if (cartItems.length > 0) 
-    {
+    if (cartItems.length > 0) {
         let totalPrice = 0;
         let totalDiscount = 0;
-        for (let i = 0; i < cartItems.length; i++)
-        {
+        for (let i = 0; i < cartItems.length; i++) {
             totalPrice += cartItems[i].price;
             totalDiscount += cartItems[i].discPrice;
         }
@@ -27,12 +26,23 @@ const Cart = () => {
                         }
                     </div>
                 </div>
+                {/* for mobile */}
                 <div className="fixed bottom-0 w-full border py-2 z-10 bg-white shadow-sm sm:hidden">
                     <div className="w-fit mx-auto font-semibold"><span className=" text-red-400 font-bold text-lg">{cartItems.length}</span> items in cart place order</div>
-                    <div className="w-[95%] py-4 bg-green-600 text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto my-4 text">
-                        PLACE ORDER
+                    <div>
+                    {loginData != null ? <Link to={"/checkout/address"}>
+                        <div className="w-[95%] py-4 bg-green-600 text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto my-4 text">
+                            PLACE ORDER
+                        </div>
+                        </Link> :
+                        <Link to={"/users/login"}>
+                        <div className="w-[95%] py-4 bg-green-600 text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto my-4 text">
+                            PLACE ORDER
+                        </div>
+                        </Link> }
                     </div>
                 </div>
+                {/* for tab-laptop */}
                 <div className="fixed right-0 w-[32%] border p-5 bg-white shadow-sm h-[78vh] mt-4 sm:flex flex-col justify-between mx-4 hidden">
                     <div className="w-full font-semibold border-b-2 text-center p-3"><span className=" text-red-400 font-bold text-lg ">{cartItems.length}</span> items in cart place order</div>
                     <ul className="flex justify-between">
@@ -57,10 +67,17 @@ const Cart = () => {
                     </ul>
                     <ul className="flex justify-between font-bold">
                         <li>Total Amount</li>
-                        <li><spna className="text-lg">₹</spna>{totalPrice-totalDiscount}</li>
+                        <li><spna className="text-lg">₹</spna>{totalPrice - totalDiscount}</li>
                     </ul>
-                    <div className="w-[100%] py-2 hover:bg-green-700 hover:text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto bg-white  border border-green-600  delay-100">
-                        PLACE ORDER
+                    <div>
+                        {loginData != null ? <Link to={"/checkout/address"}>
+                            <div className="w-[100%] py-2 hover:bg-green-700 hover:text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto bg-white  border border-green-600  delay-100">
+                                PLACE ORDER
+                            </div>
+                        </Link> : <Link to={"/users/login"}>
+                            <div className="w-[100%] py-2 hover:bg-green-700 hover:text-white font-bold hover:cursor-pointer text-center rounded-md mx-auto bg-white  border border-green-600  delay-100">
+                                PLACE ORDER
+                            </div></Link>}
                     </div>
                 </div>
             </div>
